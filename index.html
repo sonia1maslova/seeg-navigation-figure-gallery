@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Static gallery for SEEG navigation analysis figures.">
+  <title>SEEG Navigation Figure Gallery</title>
+  <link rel="stylesheet" href="static/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="header-inner">
+      <div>
+        <h1>SEEG Navigation Figure Gallery</h1>
+        <p id="gallery-summary" class="summary">Loading figure index…</p>
+      </div>
+      <div class="controls">
+        <label>
+          <span>Search</span>
+          <input id="search" type="search" placeholder="ROI, PLV, trial_level, heatmap…">
+        </label>
+        <label>
+          <span>Folder</span>
+          <select id="folder-filter">
+            <option value="">All folders</option>
+          </select>
+        </label>
+        <label>
+          <span>Tag</span>
+          <select id="tag-filter">
+            <option value="">All tags</option>
+          </select>
+        </label>
+        <label>
+          <span>Per page</span>
+          <select id="page-size">
+            <option value="24">24</option>
+            <option value="48" selected>48</option>
+            <option value="96">96</option>
+          </select>
+        </label>
+      </div>
+    </div>
+  </header>
+
+  <main class="main">
+    <div class="toolbar">
+      <div id="result-count"></div>
+      <div class="pager">
+        <button id="prev-page" type="button">Previous</button>
+        <span id="page-label"></span>
+        <button id="next-page" type="button">Next</button>
+      </div>
+    </div>
+
+    <div id="gallery" class="gallery" aria-live="polite"></div>
+
+    <div class="toolbar bottom-toolbar">
+      <div></div>
+      <div class="pager">
+        <button id="prev-page-bottom" type="button">Previous</button>
+        <span id="page-label-bottom"></span>
+        <button id="next-page-bottom" type="button">Next</button>
+      </div>
+    </div>
+  </main>
+
+  <dialog id="viewer">
+    <div class="viewer-head">
+      <div>
+        <div id="viewer-name" class="viewer-name"></div>
+        <div id="viewer-path" class="viewer-path"></div>
+      </div>
+      <button id="viewer-close" type="button">Close</button>
+    </div>
+    <div class="viewer-body">
+      <button id="viewer-prev" class="viewer-nav" type="button">‹</button>
+      <img id="viewer-image" alt="">
+      <button id="viewer-next" class="viewer-nav" type="button">›</button>
+    </div>
+  </dialog>
+
+  <noscript>
+    <p class="noscript">JavaScript is required to browse this figure gallery.</p>
+  </noscript>
+
+  <script src="static/app.js" defer></script>
+</body>
+</html>
