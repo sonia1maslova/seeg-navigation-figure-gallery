@@ -10,25 +10,40 @@
 <body>
   <header class="site-header">
     <div class="header-inner">
-      <div>
-        <h1>SEEG Navigation Figure Gallery</h1>
-        <p id="gallery-summary" class="summary">Loading figure index…</p>
+      <div class="title-row">
+        <div>
+          <h1>SEEG Navigation Figure Gallery</h1>
+          <p id="gallery-summary" class="summary">Loading figure index…</p>
+        </div>
       </div>
+
+      <section class="directory-panel" aria-label="Figure directory navigator">
+        <div class="directory-panel-head">
+          <span class="directory-label">Directory</span>
+          <button id="up-folder" class="compact-button" type="button">↑ Up</button>
+        </div>
+
+        <nav id="breadcrumb" class="breadcrumb" aria-label="Breadcrumb"></nav>
+        <div id="directory-selects" class="directory-selects" aria-label="Choose directory by level"></div>
+      </section>
+
       <div class="controls">
         <label>
           <span>Search</span>
           <input id="search" type="search" placeholder="ROI, PLV, trial_level, heatmap…">
         </label>
         <label>
-          <span>Folder</span>
-          <select id="folder-filter">
-            <option value="">All folders</option>
-          </select>
-        </label>
-        <label>
           <span>Tag</span>
           <select id="tag-filter">
             <option value="">All tags</option>
+          </select>
+        </label>
+        <label>
+          <span>Scope</span>
+          <select id="search-scope">
+            <option value="current" selected>Current folder</option>
+            <option value="subtree">Current folder + subfolders</option>
+            <option value="all">All figures</option>
           </select>
         </label>
         <label>
@@ -44,25 +59,46 @@
   </header>
 
   <main class="main">
-    <div class="toolbar">
-      <div id="result-count"></div>
-      <div class="pager">
-        <button id="prev-page" type="button">Previous</button>
-        <span id="page-label"></span>
-        <button id="next-page" type="button">Next</button>
+    <section id="folder-section" class="content-section" aria-labelledby="folder-heading">
+      <div class="section-heading-row">
+        <div>
+          <h2 id="folder-heading">Folders</h2>
+          <p id="current-directory" class="section-subtitle">Figures</p>
+        </div>
+        <div id="folder-count" class="section-count"></div>
       </div>
-    </div>
+      <div id="folder-grid" class="folder-grid"></div>
+    </section>
 
-    <div id="gallery" class="gallery" aria-live="polite"></div>
-
-    <div class="toolbar bottom-toolbar">
-      <div></div>
-      <div class="pager">
-        <button id="prev-page-bottom" type="button">Previous</button>
-        <span id="page-label-bottom"></span>
-        <button id="next-page-bottom" type="button">Next</button>
+    <section class="content-section figures-section" aria-labelledby="figure-heading">
+      <div class="section-heading-row figure-heading-row">
+        <div>
+          <h2 id="figure-heading">Figures</h2>
+          <p id="scope-description" class="section-subtitle"></p>
+        </div>
+        <div id="result-count" class="section-count"></div>
       </div>
-    </div>
+
+      <div class="toolbar">
+        <div></div>
+        <div class="pager">
+          <button id="prev-page" type="button">Previous</button>
+          <span id="page-label"></span>
+          <button id="next-page" type="button">Next</button>
+        </div>
+      </div>
+
+      <div id="gallery" class="gallery" aria-live="polite"></div>
+
+      <div class="toolbar bottom-toolbar">
+        <div></div>
+        <div class="pager">
+          <button id="prev-page-bottom" type="button">Previous</button>
+          <span id="page-label-bottom"></span>
+          <button id="next-page-bottom" type="button">Next</button>
+        </div>
+      </div>
+    </section>
   </main>
 
   <dialog id="viewer">
@@ -74,9 +110,9 @@
       <button id="viewer-close" type="button">Close</button>
     </div>
     <div class="viewer-body">
-      <button id="viewer-prev" class="viewer-nav" type="button">‹</button>
+      <button id="viewer-prev" class="viewer-nav" type="button" aria-label="Previous figure">‹</button>
       <img id="viewer-image" alt="">
-      <button id="viewer-next" class="viewer-nav" type="button">›</button>
+      <button id="viewer-next" class="viewer-nav" type="button" aria-label="Next figure">›</button>
     </div>
   </dialog>
 
