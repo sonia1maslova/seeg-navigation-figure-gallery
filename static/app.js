@@ -489,7 +489,13 @@
   function setViewerFit(mode) {
     const nextMode = viewerFitModes.has(mode) ? mode : "contain";
     state.viewerFit = nextMode;
-    $("viewer").dataset.fit = nextMode;
+    const viewer = $("viewer");
+    viewer.dataset.fit = nextMode;
+    const viewerBody = viewer.querySelector(".viewer-body");
+    if (viewerBody) {
+      viewerBody.scrollTop = 0;
+      viewerBody.scrollLeft = 0;
+    }
     document.querySelectorAll(".viewer-fit-button").forEach(button => {
       const active = button.dataset.fit === nextMode;
       button.classList.toggle("is-active", active);

@@ -572,3 +572,85 @@ dialog[open] {
     justify-content: flex-start;
   }
 }
+/* Robust viewer sizing: the image is constrained by the remaining viewport,
+   not by its intrinsic dimensions. */
+dialog[open] {
+  box-sizing: border-box;
+}
+
+.viewer-head {
+  flex: 0 0 auto;
+}
+
+.viewer-body {
+  position: relative;
+  display: flex;
+  flex: 1 1 0;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-width: 0;
+  min-height: 0;
+  max-height: none;
+  overflow: auto;
+}
+
+.viewer-body img {
+  flex: 0 0 auto;
+  min-width: 0;
+  min-height: 0;
+}
+
+.viewer-nav {
+  position: absolute;
+  top: 50%;
+  z-index: 3;
+  margin: 0;
+  transform: translateY(-50%);
+  opacity: .82;
+}
+
+#viewer-prev { left: 10px; }
+#viewer-next { right: 10px; }
+
+#viewer[data-fit="contain"] .viewer-body img {
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  margin: auto;
+}
+
+#viewer[data-fit="width"] .viewer-body {
+  align-items: flex-start;
+}
+
+#viewer[data-fit="width"] .viewer-body img {
+  width: 100%;
+  height: auto;
+  max-width: none;
+  max-height: none;
+  margin: 0;
+}
+
+#viewer[data-fit="height"] .viewer-body img {
+  width: auto;
+  height: 100%;
+  max-width: none;
+  max-height: none;
+  object-fit: contain;
+  margin: auto;
+}
+
+#viewer[data-fit="actual"] .viewer-body {
+  align-items: flex-start;
+}
+
+#viewer[data-fit="actual"] .viewer-body img {
+  width: auto;
+  height: auto;
+  max-width: none;
+  max-height: none;
+  margin: 0 auto;
+}
