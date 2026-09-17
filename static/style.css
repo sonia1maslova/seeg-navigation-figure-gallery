@@ -477,3 +477,98 @@ dialog::backdrop {
     gap: 4px;
   }
 }
+/* Viewer image fitting modes. */
+dialog[open] {
+  display: flex;
+  flex-direction: column;
+  height: 97vh;
+  overflow: hidden;
+}
+
+.viewer-head > div:first-child {
+  min-width: 0;
+}
+
+.viewer-actions {
+  display: flex;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.viewer-fit-label {
+  margin-right: 2px;
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.viewer-fit-button {
+  padding: 6px 9px;
+  font-size: 12px;
+}
+
+.viewer-fit-button.is-active {
+  border-color: var(--accent);
+  background: var(--accent);
+  color: white;
+}
+
+.viewer-body {
+  flex: 1 1 auto;
+  min-height: 0;
+  max-height: none;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+}
+
+.viewer-nav {
+  z-index: 2;
+}
+
+#viewer[data-fit="contain"] .viewer-body img {
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+#viewer[data-fit="width"] .viewer-body img {
+  width: 100%;
+  height: auto;
+  max-width: none;
+  max-height: none;
+}
+
+#viewer[data-fit="height"] .viewer-body img {
+  width: auto;
+  height: 100%;
+  max-width: none;
+  max-height: none;
+}
+
+#viewer[data-fit="actual"] .viewer-body img {
+  width: auto;
+  height: auto;
+  max-width: none;
+  max-height: none;
+}
+
+@media (max-width: 760px) {
+  dialog[open] {
+    width: 100vw;
+    height: 100dvh;
+    max-height: 100dvh;
+    border-radius: 0;
+  }
+  .viewer-head {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .viewer-actions {
+    justify-content: flex-start;
+  }
+}

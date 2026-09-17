@@ -7,7 +7,14 @@
     page: 1,
     pageSize: 48,
     viewerIndex: 0,
+    viewerFit: "contain",
   };
+
+  try {
+    state.viewerFit = localStorage.getItem("seegGalleryViewerFit") || "contain";
+  } catch (_) {
+    state.viewerFit = "contain";
+  }
 
   const $ = (id) => document.getElementById(id);
 
@@ -477,6 +484,24 @@
     document.querySelector(".figures-section")?.scrollIntoView({behavior: "smooth", block: "start"});
   }
 
+  const viewerFitModes = new Set(["contain", "width", "height", "actual"]);
+
+  function setViewerFit(mode) {
+    const nextMode = viewerFitModes.has(mode) ? mode : "contain";
+    state.viewerFit = nextMode;
+    $("viewer").dataset.fit = nextMode;
+    document.querySelectorAll(".viewer-fit-button").forEach(button => {
+      const active = button.dataset.fit === nextMode;
+      button.classList.toggle("is-active", active);
+      button.setAttribute("aria-pressed", String(active));
+    });
+    try {
+      localStorage.setItem("seegGalleryViewerFit", nextMode);
+    } catch (_) {
+      // The viewer still works if browser storage is unavailable.
+    }
+  }
+
   function openViewer() {
     const fig = state.filtered[state.viewerIndex];
     if (!fig) return;
@@ -486,6 +511,7 @@
     $("viewer-image").alt = fig.name;
 
     const viewer = $("viewer");
+    setViewerFit(state.viewerFit);
     if (!viewer.open) viewer.showModal();
   }
 
@@ -516,6 +542,9 @@
   $("next-page-bottom").addEventListener("click", () => changePage(1));
 
   $("viewer-close").addEventListener("click", () => $("viewer").close());
+  document.querySelectorAll(".viewer-fit-button").forEach(button => {
+    button.addEventListener("click", () => setViewerFit(button.dataset.fit));
+  });
   $("viewer-prev").addEventListener("click", () => moveViewer(-1));
   $("viewer-next").addEventListener("click", () => moveViewer(1));
 

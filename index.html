@@ -107,7 +107,14 @@
         <div id="viewer-name" class="viewer-name"></div>
         <div id="viewer-path" class="viewer-path"></div>
       </div>
-      <button id="viewer-close" type="button">Close</button>
+      <div class="viewer-actions" role="group" aria-label="Image display mode">
+        <span class="viewer-fit-label">View</span>
+        <button class="viewer-fit-button" data-fit="contain" type="button">Fit screen</button>
+        <button class="viewer-fit-button" data-fit="width" type="button">Fit width</button>
+        <button class="viewer-fit-button" data-fit="height" type="button">Fit height</button>
+        <button class="viewer-fit-button" data-fit="actual" type="button">100%</button>
+        <button id="viewer-close" type="button">Close</button>
+      </div>
     </div>
     <div class="viewer-body">
       <button id="viewer-prev" class="viewer-nav" type="button" aria-label="Previous figure">‹</button>
